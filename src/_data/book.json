@@ -1,0 +1,142 @@
+[
+  {
+    "title": "The Great Gatsby",
+    "slug": "the-great-gatsby",
+    "author": {
+      "name": "F. Scott Fitzgerald",
+      "bio": "Francis Scott Key Fitzgerald was an American novelist.",
+      "nationality": "American"
+    },
+    "publishedDate": "1925-04-10T00:00:00.000Z",
+    "genres": ["Classic", "Fiction"],
+    "copiesAvailable": 5,
+    "ratings": {
+      "average": 4.5,
+      "reviews": 1200
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "slug": "to-kill-a-mockingbird",
+    "author": {
+      "name": "Harper Lee",
+      "bio": "Harper Lee was an American novelist best known for To Kill a Mockingbird.",
+      "nationality": "American"
+    },
+    "publishedDate": "1960-07-11T00:00:00.000Z",
+    "genres": ["Classic", "Historical Fiction"],
+    "copiesAvailable": 8,
+    "ratings": {
+      "average": 4.8,
+      "reviews": 2500
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "1984",
+    "slug": "1984",
+    "author": {
+      "name": "George Orwell",
+      "bio": "George Orwell was an English novelist and essayist.",
+      "nationality": "British"
+    },
+    "publishedDate": "1949-06-08T00:00:00.000Z",
+    "genres": ["Dystopian", "Science Fiction"],
+    "copiesAvailable": 3,
+    "ratings": {
+      "average": 4.7,
+      "reviews": 3100
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "Brave New World",
+    "slug": "brave-new-world",
+    "author": {
+      "name": "Aldous Huxley",
+      "bio": "Aldous Leonard Huxley was an English writer and philosopher.",
+      "nationality": "British"
+    },
+    "publishedDate": "1932-02-10T00:00:00.000Z",
+    "genres": ["Dystopian", "Science Fiction"],
+    "copiesAvailable": 7,
+    "ratings": {
+      "average": 4.3,
+      "reviews": 1800
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "Pride and Prejudice",
+    "slug": "pride-and-prejudice",
+    "author": {
+      "name": "Jane Austen",
+      "bio": "Jane Austen was an English novelist known primarily for her six major novels.",
+      "nationality": "British"
+    },
+    "publishedDate": "1813-01-28T00:00:00.000Z",
+    "genres": ["Classic", "Romance"],
+    "copiesAvailable": 12,
+    "ratings": {
+      "average": 4.6,
+      "reviews": 2200
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "The Catcher in the Rye",
+    "slug": "the-catcher-in-the-rye",
+    "author": {
+      "name": "J.D. Salinger",
+      "bio": "Jerome David Salinger was an American writer best known for his only novel.",
+      "nationality": "American"
+    },
+    "publishedDate": "1951-07-16T00:00:00.000Z",
+    "genres": ["Fiction", "Coming-of-Age"],
+    "copiesAvailable": 4,
+    "ratings": {
+      "average": 4.4,
+      "reviews": 2800
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  },
+  {
+    "title": "One Hundred Years of Solitude",
+    "slug": "one-hundred-years-of-solitude",
+    "author": {
+      "name": "Gabriel García Márquez",
+      "bio": "Gabriel José de la Concordia García Márquez was a Colombian novelist, short-story writer, screenwriter, and journalist.",
+      "nationality": "Colombian"
+    },
+    "publishedDate": "1967-05-30T00:00:00.000Z",
+    "genres": ["Magic Realism", "Fiction"],
+    "copiesAvailable": 6,
+    "ratings": {
+      "average": 4.9,
+      "reviews": 3000
+    },
+    "meta": {
+      "createdAt": "2025-01-10T22:47:00.000Z",
+      "updatedAt": "2025-01-10T22:47:00.000Z"
+    }
+  }
+]

@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import Book from "../models/booksModel";
+import { MongoServerError } from "mongodb";
 
 // @description show all books
 // @routes api/v1/books
@@ -15,6 +17,32 @@ export const getBooks = (_req: Request, res: Response) => {
 export const getBook = (req: Request, res: Response) => {
   const { id } = req.params;
   res.status(200).json({ success: true, msg: `show bootcamp ${id}` });
+};
+
+// @description create Bootcamp
+// route api/v1/books
+// @access public
+export const createBook = async (req: Request, res: Response) => {
+  try {
+    const book = await Book.create(req.body);
+    res.status(201).json({
+      success: true,
+      data: book,
+    });
+  } catch (error) {
+    if (error instanceof MongoServerError) {
+      res.status(400).json({
+        success: false,
+        message: `Duplicate key error: ${JSON.stringify(error.keyValue)}`,
+        details: error.errmsg,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: "Server Error ",
+      });
+    }
+  }
 };
 
 // description update single book

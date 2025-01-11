@@ -2,10 +2,13 @@ import express, { Application, Request, Response } from "express";
 import * as dotenv from "dotenv";
 import router from "./routers/booksRouter";
 import connectDb from "./config/db";
+// connect database
+connectDb();
 
 const app: Application = express();
 
-connectDb();
+// Body Parser
+app.use(express.json());
 
 // Load custom file
 const result = dotenv.config();

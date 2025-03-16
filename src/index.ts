@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import * as dotenv from "dotenv";
 import router from "./routers/booksRouter";
 import connectDb from "./config/db";
+import errorHandler from "./middleware/errorHandler";
 // connect database
 connectDb();
 
@@ -22,10 +23,14 @@ const PORT = process.env.PORT;
 
 app.use("/api/v1/books", router);
 
+// Error Handling Middleware (Must be placed after routes)
+
+app.use(errorHandler);
+
 // Routes
 
 app.get("/", (_req: Request, res: Response) => {
-  res.send("Hello  familly");
+  res.send("Hello  family");
 });
 
 app.listen(PORT, () => {

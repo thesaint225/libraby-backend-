@@ -1,86 +1,114 @@
 import { Request, Response, NextFunction } from "express";
+import mongoose from "mongoose";
 import Book from "../models/booksModel";
 import { asyncHandler } from "../helpers/asyncHandler";
+import ErrorResponse from "../helpers/errorResponse";
 
 // @description show all books
 // @routes api/v1/books
 // @acess  public
 
-export const getBooks = asyncHandler(async (req: Request, res: Response) => {
-  const books = await Book.find({});
-  return res.status(200).json({
-    success: true,
-    msg: "show all books",
-    data: books,
-  });
-});
+export const getBooks = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const books = await Book.find({});
+    return res.status(200).json({
+      success: true,
+      msg: "show all books",
+      data: books,
+    });
+  }
+);
 
 // description show a single book
 // routes api/v1/books
 // @access public
 
-export const getBook = asyncHandler(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const book = await Book.findById(id);
-  if (!book) {
-    return res.status(404).json({
-      success: false,
-      msg: "book not found",
-    });
+export const getBook = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    // check if the Id is valid before querying  the database
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(
+        new ErrorResponse(`Resource not found with id of ${id}`, 404)
+      );
+    }
+
+    const book = await Book.findById(id);
+
+    if (!book) {
+      return next(new ErrorResponse(`Book with id ${id} not found`, 404));
+    }
+
+    res.status(200).json({ success: true, msg: `show book ${id}`, data: book });
   }
-  res.status(200).json({ success: true, msg: `show book ${id}`, data: book });
-});
+);
 
 // @description create Bootcamp
 // route api/v1/books
 // @access public
-export const createBook = asyncHandler(async (req: Request, res: Response) => {
-  const book = await Book.create(req.body);
-  return res.status(201).json({
-    success: true,
-    msg: "book created ",
-    data: book,
-  });
-});
+export const createBook = asyncHandler(
+  async (req: Request, res: Response, _next: NextFunction) => {
+    const book = await Book.create(req.body);
+    return res.status(201).json({
+      success: true,
+      msg: "book created ",
+      data: book,
+    });
+  }
+);
 
 // description update single book
 // route api/v1/books
 // @access public
-export const updateBook = asyncHandler(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const updateBook = await Book.findByIdAndUpdate(id, req.body, {
-    // return the updated book
-    new: true,
-    // Ensure update folow  schemaValidation
-    runValidators: true,
-  });
-  if (!updateBook) {
-    return res.status(404).json({
-      success: false,
-      msg: "book not found ",
+export const updateBook = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    // check if the Id is a valid  before querying the db
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(
+        new ErrorResponse(`Resource not found with id of ${id}`, 404)
+      );
+    }
+    const updateBook = await Book.findByIdAndUpdate(id, req.body, {
+      // return the updated book
+      new: true,
+      // Ensure update folow  schemaValidation
+      runValidators: true,
+    });
+    if (!updateBook) {
+      return next(new ErrorResponse(`Book not found with ${id}`, 404));
+    }
+    res.status(200).json({
+      success: true,
+      msg: `Book ${id} updated successfully`,
+      data: updateBook,
     });
   }
-  res
-    .status(200)
-    .json({ success: true, msg: `update book ${id}`, data: updateBook });
-});
+);
 
 // @description delete single book
 // @route Delete api/v1/books
 // @access public
 
-export const deleteBook = asyncHandler(async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const deleteBook = await Book.findByIdAndDelete(id);
-  if (!deleteBook) {
-    res.status(404).json({
-      success: false,
-      msg: "book not found",
-    });
-    return;
-  }
+export const deleteBook = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    // check if the id exist before querying the data
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return next(new ErrorResponse("Resource not available", 400));
+    }
 
-  res
-    .status(200)
-    .json({ success: true, msg: `delete book ${id}`, data: deleteBook });
-});
+    // Attempt to find and delete  the book
+    const deleteBook = await Book.findByIdAndDelete(id);
+
+    // Handle case where book is not found
+    if (!deleteBook) {
+      return next(new ErrorResponse(`book ${id} not found`, 404));
+    }
+
+    res
+      .status(200)
+      .json({ success: true, msg: `delete book ${id}`, data: deleteBook });
+  }
+);

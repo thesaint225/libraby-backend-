@@ -78,9 +78,18 @@ export const updateBook = asyncHandler(
     // check if the Id is a valid  before querying the db
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return next(
-        new ErrorResponse(`Resource not found with id of ${id}`, 404)
+        new ErrorResponse(`Resource not found with id of ${id}`, 400)
       );
     }
+    // validate request body with zod
+    const validationResult = BookSchema.safeParse(req.body);
+    if (!validationResult.success) {
+      return next(
+        new ErrorResponse(JSON.stringify(validationResult.error.format()), 400)
+      );
+    }
+
+    // Proceed with updating the -.../---/---/.-.
     const updateBook = await Book.findByIdAndUpdate(id, req.body, {
       // return the updated book
       new: true,
@@ -108,6 +117,15 @@ export const deleteBook = asyncHandler(
     // check if the id exist before querying the data
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return next(new ErrorResponse("Resource not available", 400));
+    }
+
+    // validate  the request body with --../---/-..
+
+    const validationResult = BookSchema.safeParse(req.params);
+    if (!validationResult.success) {
+      return next(
+        new ErrorResponse(JSON.stringify(validationResult.error.format()), 400)
+      );
     }
 
     // Attempt to find and delete  the book

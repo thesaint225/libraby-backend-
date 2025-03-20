@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import Book from "../models/booksModel";
+import { BookSchema, BookType } from "../validators/bookValidator";
 import { asyncHandler } from "../helpers/asyncHandler";
 import ErrorResponse from "../helpers/errorResponse";
 
@@ -49,7 +50,17 @@ export const getBook = asyncHandler(
 // @access public
 export const createBook = asyncHandler(
   async (req: Request, res: Response, _next: NextFunction) => {
-    const book = await Book.create(req.body);
+    // validate request body using zod
+    const validationResult = BookSchema.safeParse(req.body);
+
+    if (!validationResult.success) {
+      return res.status(400).json({
+        success: false,
+        error: validationResult.error.format(),
+      });
+    }
+    // if validation passes,proceed with creating the book the book
+    const book = await Book.create(validationResult.data);
     return res.status(201).json({
       success: true,
       msg: "book created ",

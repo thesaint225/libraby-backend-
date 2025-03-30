@@ -93,7 +93,7 @@ export const updateBook = asyncHandler(
     const updateBook = await Book.findByIdAndUpdate(id, req.body, {
       // return the updated book
       new: true,
-      // Ensure update folow  schemaValidation
+      // Ensure update follows  schemaValidation
       runValidators: true,
     });
     if (!updateBook) {

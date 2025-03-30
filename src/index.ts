@@ -17,6 +17,8 @@ if (result.error) {
   console.log("Error loading .env file", result.error);
 }
 
+console.log("MONGO_URI", process.env.MONGO_URI);
+
 const PORT = process.env.PORT;
 
 // Mount the route
